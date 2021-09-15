@@ -17,7 +17,7 @@ func TestParseLines(t *testing.T) {
 ** topic 2
 *** sub topic 2 1
 `
-	got, err := ParseLines(strings.SplitAfter(test, "\n"), "")
+	got, err := ParseLines(strings.SplitAfter(test, "\n"), "", "")
 	if err != nil {
 		t.Error(err)
 	}
@@ -53,7 +53,7 @@ func TestLookForIcon(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		fn := lookForIcon(tt.imagespath)
+		fn := lookForIcon(tt.imagespath, "")
 		fn(&tt.entry)
 
 		t.Run(tt.imagespath, func(t *testing.T) {

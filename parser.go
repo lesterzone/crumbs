@@ -25,6 +25,7 @@ func ParseLines(lines []string, imagesPath, imagesSuffix string) (*Entry, error)
 
 	node := root
 	nodeDepth := 0
+
 	for _, el := range lines {
 		// skip empty lines
 		if strings.TrimSpace(el) == "" {
@@ -42,16 +43,16 @@ func ParseLines(lines []string, imagesPath, imagesSuffix string) (*Entry, error)
 		// trim leading 'stars', then the spaces
 		text := el[childDepth:]
 		text = strings.TrimSpace(text)
-
 		// create the child
 		childID, err := mkID()
+
 		if err != nil {
 			return nil, err
 		}
+
 		child := newNote(childID, childDepth, text)
 		// check if has an icon
 		checkIcon(child)
-
 		// case: the current 'node' is the parent
 		if childDepth > nodeDepth {
 			// update tree
@@ -83,14 +84,20 @@ func ParseLines(lines []string, imagesPath, imagesSuffix string) (*Entry, error)
 	return root, nil
 }
 
-// depth space-counting helper (probably done in a dumb way, dunno)
+// depth space-counting helper
+// since we have ' ' in mind, this need to count until the first non space char
 func depth(line string) int {
 	i := 0
-	for line[i] == '*' {
-		i++
+	for index := range line {
+		if (line[index] == ' '){
+			i++
+			continue
+		} else {
+			return i/2 // attempt to fix nodes with each level
+		}
 	}
 
-	return i
+	return i/2
 }
 
 // newNote creates a new note element

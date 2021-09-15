@@ -41,8 +41,8 @@ func newGraph(opts ...GraphOption) *dot.Graph {
 
 	res.Attr("rankdir", "LR")
 	res.Attr("pad", "1")
-	res.Attr("ranksep", "2.3")
-	res.Attr("nodesep", "0.8")
+	res.Attr("ranksep", "1") // space, connectors
+	res.Attr("nodesep", "0.2")
 	res.Attr("fontname", "Fira Code")
 	res.Attr("fontsize", "14")
 	res.Attr("splines", "curved")
@@ -72,7 +72,8 @@ func createEdge(gr *dot.Graph, fid, tid string, color string) error {
 
 	res.Attr("fontname", "Fira Code")
 	res.Attr("fontsize", "10")
-	res.Attr("penwidth", "2.5")
+	res.Attr("penwidth", "1")
+
 	//res.Attr("xlabels", strconv.Itoa(lvl))
 
 	if strings.TrimSpace(color) != "" {
